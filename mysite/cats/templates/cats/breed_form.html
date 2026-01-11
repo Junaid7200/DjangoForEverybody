@@ -1,9 +1,9 @@
 {% extends "base_bootstrap.html" %}
 
-{% block title %}{% if breed %}Edit Breed{% else %}Add Breed{% endif %}{% endblock %}
+{% block title %}{% if breed %}Update Breed{% else %}Add Breed{% endif %}{% endblock %}
 
 {% block content %}
-<h1>{% if breed %}Edit Breed: {{ breed.name }}{% else %}Add New Breed{% endif %}</h1>
+<h1>{% if breed %}Update Breed: {{ breed.name }}{% else %}Add New Breed{% endif %}</h1>
 
 <form method="post">
     {% csrf_token %}
