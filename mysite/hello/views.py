@@ -6,5 +6,5 @@ def helloView(request):
 	if num_visits > 4:
 		del(request.session["num_visits"])
 	resp = HttpResponse("b2486eb4<br>view count="+str(num_visits))
-	resp.set_cookie('dj4e_cookie', 'b2486eb4', max_age=1000)
+	resp.set_cookie('dj4e_cookie', 'fac1f066', max_age=1000)
 	return resp

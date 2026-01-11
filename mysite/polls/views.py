@@ -52,5 +52,5 @@ def vote(request, question_id):
 
 def owner(request: HttpRequest) -> HttpResponse:
         response = HttpResponse()
-        response.write("Hello, world. b2486eb4 is the polls index.")
+        response.write("Hello, world. fac1f066 is the polls index.")
         return response
