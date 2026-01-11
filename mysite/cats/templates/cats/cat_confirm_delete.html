@@ -1,0 +1,19 @@
+{% extends "base_bootstrap.html" %}
+
+{% block title %}Delete Cat{% endblock %}
+
+{% block content %}
+<h1>Delete Cat</h1>
+
+<div class="alert">
+    <p>Are you sure you want to delete the cat: <strong>{{ cat.nickname }}</strong>?</p>
+    <p><small>Weight: {{ cat.weight }} kg | Foods: {{ cat.foods }} | Breed: {{ cat.breed.name }}</small></p>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn">Yes, Delete</button>
+    <a href="{% url 'cat_list' %}" class="btn">Cancel</a>
+</form>
+
+{% endblock %}
