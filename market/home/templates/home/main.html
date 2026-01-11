@@ -1,0 +1,10 @@
+{% extends "base_bootstrap.html" %}
+{% block content %}
+    <h1>Welcome to {{ settings.APP_NAME }}</h1>
+    <p>
+    We are using the {{ settings.DATABASES.default.ENGINE }} database engine.
+    </p>
+    <p>
+    Current value for DJ4E_CODE in settings.py: {{ settings.DJ4E_CODE }}
+    </p>
+{% endblock content %}
