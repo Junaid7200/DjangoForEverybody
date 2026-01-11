@@ -10,7 +10,6 @@ urlpatterns = [
     # list, edit, and delete a breed
     path("breeds/", views.BreedList.as_view(), name="breed_list"),
     path("breeds/create/", views.CreateBreed.as_view(), name="breed_create"),
-    path("breed/<int:pk>/update", views.BreedUpdate, name="breed_update"),
-    path("breed/<int:pk>/delete", views.BreedDelete, name="delete_breed"),
-    # BreedUpdate and BreedDelete are functional view practice
+    path("breed/<int:pk>/update", views.BreedUpdate.as_view(), name="breed_update"),
+    path("breed/<int:pk>/delete", views.BreedDelete.as_view(), name="delete_breed"),
 ]
