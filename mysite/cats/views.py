@@ -43,13 +43,13 @@ class CreateBreed(LoginRequiredMixin, CreateView):
     fields = "__all__"
     success_url = reverse_lazy("breed_list")
 
-class BreedUpdate(LoginRequiredMixin, View):
+class BreedUpdate(LoginRequiredMixin, UpdateView):
     model = Breed
     template_name = "cats/breed_form.html"
     fields = "__all__"
     success_url = reverse_lazy("breed_list")
 
-class BreedDelete(LoginRequiredMixin, View):
+class BreedDelete(LoginRequiredMixin, DeleteView):
     model = Breed
     template_name = "cats/breed_confirm_delete.html"
     success_url = reverse_lazy("breed_list")
