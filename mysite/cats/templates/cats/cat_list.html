@@ -30,6 +30,7 @@
     </table>
     {% else %}
     <p>No cats available.</p>
+    <a href="{% url 'cat_create' %}">Add a new cat</a>
     {% endif %}
 
 {% endblock %}
