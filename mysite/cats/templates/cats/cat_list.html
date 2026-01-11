@@ -28,6 +28,8 @@
             {% endfor %}
         </tbody>
     </table>
+    <a href="{% url 'breed_create' %}">Add a breed</a>
+    <a href="{% url 'cat_create' %}">Add a new cat</a>
     {% else %}
     <p>No cats available.</p>
     <a href="{% url 'cat_create' %}">Add a new cat</a>
