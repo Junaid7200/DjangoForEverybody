@@ -1,0 +1,36 @@
+{% extends "base_bootstrap.html" %}
+
+{% block content %}
+    <h1>Cats List</h1>
+    {% if cats %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nickname</th>
+                <th>Weight</th>
+                <th>foods</th>
+                <th>Breed</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cat in cats %}
+            <tr>
+                <td>{{ cat.nickname }}</td>
+                <td>{{ cat.weight }}</td>
+                <td>{{ cat.foods }}</td>
+                <td>{{ cat.breed }}</td>
+                <td>
+                    <a href="{% url 'cat_update' cat.id %}">Edit</a> 
+                    <a href="{% url 'cat_delete' cat.id %}">Delete</a>
+                    </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif%}
+    {% else %}
+    <p>No cats available.</p>
+    {% endif %}
+
+{% endblock %}
