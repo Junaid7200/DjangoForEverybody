@@ -23,12 +23,12 @@
                 <td>
                     <a href="{% url 'cat_update' cat.id %}">Edit</a> |
                     <a href="{% url 'cat_delete' cat.id %}">Delete</a> |
-                    <a href="{% url 'breed_list' %}">View breeds</a>
-                    </td>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <a href="{% url 'breed_list' %}">View breeds</a>
     <a href="{% url 'breed_create' %}">Add a breed</a>
     <a href="{% url 'cat_create' %}">Add a new cat</a>
     {% else %}
