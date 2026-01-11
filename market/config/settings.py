@@ -102,10 +102,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'drchuck$market',
-        'USER': 'drchuck',
-        'PASSWORD': 'phone_153742',
-        'HOST': 'drchuck.mysql.pythonanywhere-services.com',
+        'NAME': 'Junaid7200$market',
+        'USER': 'Junaid7200',
+        'PASSWORD': '64cbdacc',
+        'HOST': 'Junaid7200.mysql.pythonanywhere-services.com',
          'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
@@ -113,12 +113,12 @@ DATABASES = {
 }
 
 # Comment this use of Sqlite out so your application uses MySQL
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+#DATABASES = {
+#    "default": {
+#        "ENGINE": "django.db.backends.sqlite3",
+#        "NAME": BASE_DIR / "db.sqlite3",
+#   }
+#}
 
 
 # Password validation
