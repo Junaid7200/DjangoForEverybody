@@ -29,6 +29,11 @@ class CatUpdate(LoginRequiredMixin, UpdateView):
     template_name = "cats/cat_form.html"
     fields = "__all__"
     success_url = reverse_lazy("cat_list")
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['breed'] = Breed.objects.exists()  # True if any breeds exist
+        return context
 
 class CatDelete(LoginRequiredMixin, DeleteView):
     model = Cat
