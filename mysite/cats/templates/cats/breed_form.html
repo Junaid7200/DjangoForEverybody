@@ -1,0 +1,17 @@
+{% extends "base_bootstrap.html" %}
+
+{% block title %}{% if breed %}Edit Breed{% else %}Add Breed{% endif %}{% endblock %}
+
+{% block content %}
+<h1>{% if breed %}Edit Breed: {{ breed.name }}{% else %}Add New Breed{% endif %}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    <table class="table">
+        {{ form.as_table }}
+    </table>
+    <button type="submit">Save</button>
+    <a href="{% url 'breed_list' %}">Cancel</a>
+</form>
+
+{% endblock %}
