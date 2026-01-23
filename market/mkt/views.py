@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from . import models
 
 from mkt.owner import OwnerCreateView, OwnerDeleteView, OwnerDetailView, OwnerListView, OwnerUpdateView
