@@ -1,5 +1,5 @@
 from django import forms
-from mkt.models import Ad
+from mkt.models import Ad, Comment
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from mkt.humanize import naturalsize
 
@@ -45,8 +45,12 @@ class CreateForm(forms.ModelForm):
 
         return instance
 
-class CommentForm(forms.Form):
-    comment = forms.CharField(required=True, max_length=500, min_length=3, strip=True)
+    
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
+
 
 # https://docs.djangoproject.com/en/5.2/topics/http/file-uploads/
 # https://stackoverflow.com/questions/2472422/django-file-upload-size-limit
