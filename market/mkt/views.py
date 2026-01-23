@@ -6,6 +6,8 @@ from mkt.owner import OwnerCreateView, OwnerDeleteView, OwnerDetailView, OwnerLi
 class AdListView(OwnerListView):
     model = models.Ad
     template_name = 'mkt/ad_list.html'
+    # context_object_name is not defined here so it will be <modelname>_list by default.
+    # in the same way, the user object that we will be using in the templates, that is also passed to the templates by default, no need to do anything
 class AdDetailView(OwnerDetailView):
     model = models.Ad
     template_name = 'mkt/ad_detail.html'
