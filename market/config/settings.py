@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'social_django',
     'taggit',
     'home.apps.HomeConfig',
+    "mkt",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
