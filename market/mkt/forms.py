@@ -47,10 +47,7 @@ class CreateForm(forms.ModelForm):
 
     
 class CommentForm(forms.ModelForm):
-    text = forms.CharField(label="Comment")
-    class Meta:
-        model = Comment
-        fields = ['text']
+    comment = forms.CharField(label="Comment", max_length=500, min_length=3, strip=True)
 
 
 # https://docs.djangoproject.com/en/5.2/topics/http/file-uploads/
