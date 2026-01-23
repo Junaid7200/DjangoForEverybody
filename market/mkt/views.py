@@ -1,5 +1,5 @@
 from . import models
-from mkt.forms import CreateForm
+from mkt.forms import CreateForm, CommentForm
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -18,6 +18,13 @@ class AdDetailView(OwnerDetailView):
     model = models.Ad
     fields = ['title', 'price', 'text']
     template_name = 'mkt/ad_detail.html'
+    
+    def get(self, request, pk=None):
+        ad = get_object_or_404(models.Ad, id=pk)
+        comments = models.Comment.objects.filter(ad=ad).order_by('-createdAt')
+        comment_form = CommentForm()
+        ctx = {'ad': ad, 'comments': comments, 'comment_form': comment_form}
+        return render(request, self.template_name, ctx)
 class AdCreateView(LoginRequiredMixin, View):
     template_name = 'mkt/ad_form.html'
     success_url = reverse_lazy('mkt:all')
