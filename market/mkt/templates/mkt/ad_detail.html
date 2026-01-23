@@ -37,5 +37,11 @@
 <p><strong>Price:</strong> ${{ ad.price }}</p>
 <p>{{ ad.text }}</p>
 
+<form action="" method="post" id="comment_form" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ comment_form|crispy }}
+  <input type="submit" value="Add Comment">
+</form>
+
 <p><a href="{% url 'mkt:all' %}">Back to ads</a></p>
 {% endblock %}
