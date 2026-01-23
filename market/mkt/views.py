@@ -10,6 +10,7 @@ class AdListView(OwnerListView):
     # in the same way, the user object that we will be using in the templates, that is also passed to the templates by default, no need to do anything
 class AdDetailView(OwnerDetailView):
     model = models.Ad
+    fields = ['title', 'price', 'text']
     template_name = 'mkt/ad_detail.html'
 class AdCreateView(OwnerCreateView):
     model = models.Ad
