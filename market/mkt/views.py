@@ -37,9 +37,11 @@ class CommentCreateView(LoginRequiredMixin, View):
             ctx = {'ad': ad, 'comments': comments, 'comment_form': form}
             return render(request, 'mkt/ad_detail.html', ctx)
 
-        comment = form.save(commit=False)
-        comment.owner = request.user
-        comment.ad = ad
+        comment = models.Comment(
+            text=form.cleaned_data['comment'],
+            owner=request.user,
+            ad=ad,
+        )
         comment.save()
         return redirect(reverse('mkt:ad_detail', args=[pk]))
 
