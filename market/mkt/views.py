@@ -107,6 +107,13 @@ class AdFavoriteView(LoginRequiredMixin, View):
         favorite.save()
         return redirect(reverse('mkt:ad_detail', args=[pk]))
 
+class AdUnfavoriteView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        ad = get_object_or_404(models.Ad, id=pk)
+        favorite = get_object_or_404(models.Favorite, ad=ad, owner=request.user)
+        favorite.delete()
+        return redirect(reverse('mkt:ad_detail', args=[pk]))
+
 
 def stream_file(request, pk):
     pic = get_object_or_404(models.Ad, id=pk)
