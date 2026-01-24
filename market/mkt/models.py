@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinLengthValidator
 from django.conf import settings
 
+
 # Create your models here.
 class Ad(models.Model):
     title = models.CharField(max_length=200, validators=[MinLengthValidator(2, "Title must be at least 2 characters long")])

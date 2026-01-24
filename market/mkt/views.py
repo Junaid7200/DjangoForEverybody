@@ -9,6 +9,7 @@ from mkt.owner import OwnerDeleteView, OwnerDetailView, OwnerListView
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.db.utils import IntegrityError
+from django.db.models import Q
 
 # Create your views here.
 class AdListView(OwnerListView):
@@ -16,7 +17,13 @@ class AdListView(OwnerListView):
     template_name = 'mkt/ad_list.html'
     
     def get(self, request):
-        ad_list = models.Ad.objects.all()
+        strval = request.GET.get('search', False)
+        if strval:
+            ad_list = models.Ad.objects.filter(
+                Q(title__icontains=strval) | Q(text__icontains=strval)
+            ).distinct()
+        else:
+            ad_list = models.Ad.objects.all()            
         favorites = list()
         if request.user.is_authenticated:
             rows = request.user.ads_favorite.values('id')
