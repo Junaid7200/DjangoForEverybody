@@ -100,13 +100,12 @@ class CommentDeleteView(OwnerDeleteView):
     def get_success_url(self):
         return reverse_lazy('mkt:ad_detail', args=[self.object.ad_id])
 
-
-
-
-
-
-
-
+class AdFavoriteView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        ad = get_object_or_404(models.Ad, id=pk)
+        favorite = models.Favorite(ad=ad, owner=request.user)
+        favorite.save()
+        return redirect(reverse('mkt:ad_detail', args=[pk]))
 
 
 def stream_file(request, pk):
