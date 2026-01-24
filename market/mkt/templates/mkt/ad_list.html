@@ -11,6 +11,13 @@
                     (<a href="{% url 'mkt:ad_update' ad.id %}">Edit</a> |
                     <a href="{% url 'mkt:ad_delete' ad.id %}">Delete</a>)
                     {% endif %}
+                    <a href="#" class="favorite-toggle">
+                        {% if ad.id in favorites %}
+                            <i class="fa fa-star" style="color: gold;"></i>
+                        {% else %}
+                            <i class="fa fa-star-o" style="color: gray;"></i>
+                        {% endif %}
+                    </a>
                 </li>
             {% endfor %}
         </ul>
