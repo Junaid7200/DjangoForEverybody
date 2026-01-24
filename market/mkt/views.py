@@ -27,31 +27,6 @@ class AdDetailView(OwnerDetailView):
         ctx = {'ad': ad, 'comments': comments, 'comment_form': comment_form}
         return render(request, self.template_name, ctx)
 
-class CommentCreateView(LoginRequiredMixin, View):
-    def post(self, request, pk):
-        ad = get_object_or_404(models.Ad, id=pk)
-        form = CommentForm(request.POST)
-
-        if not form.is_valid():
-            comments = models.Comment.objects.filter(ad=ad).order_by('-updatedAt')
-            ctx = {'ad': ad, 'comments': comments, 'comment_form': form}
-            return render(request, 'mkt/ad_detail.html', ctx)
-
-        comment = models.Comment(
-            text=form.cleaned_data['comment'],
-            owner=request.user,
-            ad=ad,
-        )
-        comment.save()
-        return redirect(reverse('mkt:ad_detail', args=[pk]))
-
-class CommentDeleteView(OwnerDeleteView):
-    model = models.Comment
-    template_name = 'mkt/comment_delete.html'
-
-    def get_success_url(self):
-        return reverse_lazy('mkt:ad_detail', args=[self.object.ad_id])
-
 class AdCreateView(LoginRequiredMixin, View):
     template_name = 'mkt/ad_form.html'
     success_url = reverse_lazy('mkt:all')
@@ -97,6 +72,42 @@ class AdUpdateView(LoginRequiredMixin, View):
 class AdDeleteView(OwnerDeleteView):
     model = models.Ad
     template_name = 'mkt/ad_confirm_delete.html'
+
+
+
+class CommentCreateView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        ad = get_object_or_404(models.Ad, id=pk)
+        form = CommentForm(request.POST)
+
+        if not form.is_valid():
+            comments = models.Comment.objects.filter(ad=ad).order_by('-updatedAt')
+            ctx = {'ad': ad, 'comments': comments, 'comment_form': form}
+            return render(request, 'mkt/ad_detail.html', ctx)
+
+        comment = models.Comment(
+            text=form.cleaned_data['comment'],
+            owner=request.user,
+            ad=ad,
+        )
+        comment.save()
+        return redirect(reverse('mkt:ad_detail', args=[pk]))
+
+class CommentDeleteView(OwnerDeleteView):
+    model = models.Comment
+    template_name = 'mkt/comment_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('mkt:ad_detail', args=[self.object.ad_id])
+
+
+
+
+
+
+
+
+
 
 def stream_file(request, pk):
     pic = get_object_or_404(models.Ad, id=pk)
