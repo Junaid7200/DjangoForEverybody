@@ -6,6 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.urls import reverse_lazy, reverse
 from mkt.owner import OwnerDeleteView, OwnerDetailView, OwnerListView
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.db.utils import IntegrityError
 
 # Create your views here.
 class AdListView(OwnerListView):
@@ -108,18 +111,17 @@ class CommentDeleteView(OwnerDeleteView):
     def get_success_url(self):
         return reverse_lazy('mkt:ad_detail', args=[self.object.ad_id])
 
-class AdFavoriteView(LoginRequiredMixin, View):
-    def post(self, request, pk):
+@method_decorator(csrf_exempt, name='dispatch')
+class AddFavoriteToggle(LoginRequiredMixin, View):
+    def post(sefl, request, pk):
         ad = get_object_or_404(models.Ad, id=pk)
-        favorite, created = models.Favorite.objects.get_or_create(ad=ad, owner=request.user)
-        return JsonResponse({'favorited': True, 'created': created})
-
-class AdUnfavoriteView(LoginRequiredMixin, View):
-    def post(self, request, pk):
-        ad = get_object_or_404(models.Ad, id=pk)
-        models.Favorite.objects.filter(ad=ad, owner=request.user).delete()
-        return JsonResponse({'favorited': False})
-
+        fav= models.Favorite(ad=ad, owner=request.user)
+        try:
+            fav.save()
+            return HttpResponse()
+        except IntegrityError:
+            models.Favorite.objects.filter(ad=ad, owner=request.user).delete()
+            return HttpResponse()
 
 def stream_file(request, pk):
     pic = get_object_or_404(models.Ad, id=pk)
