@@ -1,7 +1,7 @@
 from . import models
 from mkt.forms import CreateForm, CommentForm
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.urls import reverse_lazy, reverse
@@ -103,16 +103,14 @@ class CommentDeleteView(OwnerDeleteView):
 class AdFavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         ad = get_object_or_404(models.Ad, id=pk)
-        favorite = models.Favorite(ad=ad, owner=request.user)
-        favorite.save()
-        return redirect(reverse('mkt:all'))
+        favorite, created = models.Favorite.objects.get_or_create(ad=ad, owner=request.user)
+        return JsonResponse({'favorited': True, 'created': created})
 
 class AdUnfavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         ad = get_object_or_404(models.Ad, id=pk)
-        favorite = get_object_or_404(models.Favorite, ad=ad, owner=request.user)
-        favorite.delete()
-        return redirect(reverse('mkt:all'))
+        models.Favorite.objects.filter(ad=ad, owner=request.user).delete()
+        return JsonResponse({'favorited': False})
 
 
 def stream_file(request, pk):
