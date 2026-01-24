@@ -15,14 +15,14 @@ class AdListView(OwnerListView):
     model = models.Ad
     template_name = 'mkt/ad_list.html'
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            user_favorites = models.Favorite.objects.filter(owner=self.request.user).values_list('ad_id', flat=True)
-            context['favorites'] = set(user_favorites)
-        else:
-            context['favorites'] = set()
-        return context
+    def get(self, request):
+        ad_list = models.Ad.objects.all()
+        favorites = list()
+        if request.user.is_authenticated:
+            rows = request.user.ads_favorite.values('id')
+            favorites = [row['id'] for row in rows]
+        ctx = {'ad_list': ad_list, 'favorites': favorites}
+        return render(request, self.template_name, ctx)
     # context_object_name is not defined here so it will be <modelname>_list by default.
     # in the same way, the user object that we will be using in the templates, that is also passed to the templates by default, no need to do anything
 
