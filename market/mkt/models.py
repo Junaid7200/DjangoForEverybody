@@ -34,7 +34,7 @@ class Favorite(models.Model):
     ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     createdAt = models.DateTimeField(auto_now_add=True)
-    class meta:
+    class Meta:
         unique_together = ('ad', 'owner')
 
     def __str__(self):
