@@ -105,14 +105,14 @@ class AdFavoriteView(LoginRequiredMixin, View):
         ad = get_object_or_404(models.Ad, id=pk)
         favorite = models.Favorite(ad=ad, owner=request.user)
         favorite.save()
-        return redirect(reverse('mkt:all', args=[pk]))
+        return redirect(reverse('mkt:all'))
 
 class AdUnfavoriteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         ad = get_object_or_404(models.Ad, id=pk)
         favorite = get_object_or_404(models.Favorite, ad=ad, owner=request.user)
         favorite.delete()
-        return redirect(reverse('mkt:all', args=[pk]))
+        return redirect(reverse('mkt:all'))
 
 
 def stream_file(request, pk):
