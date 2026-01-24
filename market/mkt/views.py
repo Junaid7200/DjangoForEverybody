@@ -122,7 +122,7 @@ class CommentDeleteView(OwnerDeleteView):
 
 @method_decorator(csrf_exempt, name='dispatch')
 class AddFavoriteToggle(LoginRequiredMixin, View):
-    def post(sefl, request, pk):
+    def post(self, request, pk):
         ad = get_object_or_404(models.Ad, id=pk)
         fav= models.Favorite(ad=ad, owner=request.user)
         try:
