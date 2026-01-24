@@ -14,7 +14,7 @@ class Ad(models.Model):
     picture = models.BinaryField(null=True, blank=True, editable=True)
     content_type = models.CharField(max_length=256, null=True, blank=True, help_text='The MIMEType of the file')
     comments = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Comment', related_name='comments_owned')
-    favorite = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Favorite', related_name='ads_favorite')
+    favorites = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Favorite', related_name='ads_favorite')
     def __str__(self):
         return self.title
 
